@@ -1,13 +1,13 @@
 const date = new Date();
-var containerEl = document.querySelector(".container");
+let containerEl = document.querySelector(".container");
 if (localStorage.getItem("tasks") == null) {
     localStorage.setItem("tasks", JSON.stringify(["", "", "", "", "", "", "", "", ""]));
 }
-var localTasks = JSON.parse(localStorage.getItem("tasks"));
+let localTasks = JSON.parse(localStorage.getItem("tasks"));
 
 function saveTasks(event) {
-    var unsavedTask = event.target.parentElement.querySelector(".col-md-10").value;
-    var taskIndex = event.target.parentElement.getAttribute("data-id");
+    let unsavedTask = event.target.parentElement.querySelector(".col-md-10").value;
+    let taskIndex = event.target.parentElement.getAttribute("data-id");
     localTasks[taskIndex] = unsavedTask;
     localStorage.setItem("tasks", JSON.stringify(localTasks));
 }
@@ -15,23 +15,23 @@ function saveTasks(event) {
 function renderPage() {
 
     function renderTime() {
-        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        var weekdayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        var dateString = `${weekdayNames[date.getDay()]}, ${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
+        let monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        let weekdayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        let dateString = `${weekdayNames[date.getDay()]}, ${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
         $( "#currentDay" ).text( dateString );
     }
 
     function renderTasks() {
-        var times = ["9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM"];
+        let times = ["9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM"];
         for (let i = 0; i < 9; i++) {
-            var row = document.createElement("div");
-            var timeSlot = document.createElement("div");
-            var hour = document.createElement("p");
-            var tasksArea = document.createElement("textarea");
-            var saveBtn = document.createElement("button");
-            var currentHour = date.getHours();
+            let row = document.createElement("div");
+            let timeSlot = document.createElement("div");
+            let hour = document.createElement("p");
+            let tasksArea = document.createElement("textarea");
+            let saveBtn = document.createElement("button");
+            let currentHour = date.getHours();
 
-            row.classList.add("row");
+            row.classList.add("row", "mt-2");
             timeSlot.classList.add("hour", "col-2", "col-md-1", "d-flex", "align-items-center");
             tasksArea.classList.add("col-8", "col-md-10");
             if (currentHour > (i+9)) {
@@ -57,7 +57,7 @@ function renderPage() {
     }
 
     function loadTasks() {
-        var rowEls = document.querySelectorAll(".row");
+        let rowEls = document.querySelectorAll(".row");
         for (let i = 0; i < rowEls.length; i++) {
             rowEls[i].querySelector(".col-md-10").textContent = localTasks[i];
         }
@@ -71,21 +71,3 @@ function renderPage() {
 renderPage();
 
 $(".container").on("click", ".saveBtn", saveTasks);
-
-// function constructPerson(one, two) {
-//     if (one && two) {
-//         var person = {
-//             ageVal: one,
-//             nameVal: two
-//         }
-//     } else {
-//         // sdkfljlsdkfj
-//     }
-
-//     return person;
-// }
-
-// var age = 25;
-// var name = "John Doe";
-
-// console.log(new constructPerson(age, name));
