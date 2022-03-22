@@ -6,7 +6,7 @@ if (localStorage.getItem("tasks") == null) {
 var localTasks = JSON.parse(localStorage.getItem("tasks"));
 
 function saveTasks(event) {
-    var unsavedTask = event.target.parentElement.querySelector(".col-10").value;
+    var unsavedTask = event.target.parentElement.querySelector(".col-md-10").value;
     var taskIndex = event.target.parentElement.getAttribute("data-id");
     localTasks[taskIndex] = unsavedTask;
     localStorage.setItem("tasks", JSON.stringify(localTasks));
@@ -32,8 +32,8 @@ function renderPage() {
             var currentHour = date.getHours();
 
             row.classList.add("row");
-            timeSlot.classList.add("hour", "col-1", "d-flex", "align-items-center");
-            tasksArea.classList.add("col-10");
+            timeSlot.classList.add("hour", "col-2", "col-md-1", "d-flex", "align-items-center");
+            tasksArea.classList.add("col-8", "col-md-10");
             if (currentHour > (i+9)) {
                 tasksArea.classList.add("past");
             } else if (currentHour === (i+9)) {
@@ -41,7 +41,7 @@ function renderPage() {
             } else {
                 tasksArea.classList.add("future");
             }
-            saveBtn.classList.add("saveBtn", "col-1");
+            saveBtn.classList.add("saveBtn", "col-2", "col-md-1");
 
             containerEl.appendChild(row);
             row.appendChild(timeSlot);
@@ -59,7 +59,7 @@ function renderPage() {
     function loadTasks() {
         var rowEls = document.querySelectorAll(".row");
         for (let i = 0; i < rowEls.length; i++) {
-            rowEls[i].querySelector(".col-10").textContent = localTasks[i];
+            rowEls[i].querySelector(".col-md-10").textContent = localTasks[i];
         }
     }
 
