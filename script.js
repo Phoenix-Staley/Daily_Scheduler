@@ -1,23 +1,23 @@
-// 1. Get the current time, and display it under the title
-// 2. Define a function to save tasks to localStorage(?)
-// 3. Use a for loop to generate 8 rows with a time, a textarea (with the correct task inside), and a save button (with an onclick of the last function)
-// 4. Based on the current time, use a for loop to assign textareas a past, present, or future value
 const date = new Date();
+var containerEl = document.querySelector(".container");
 if (localStorage.getItem("tasks") == null) {
     localStorage.setItem("tasks", JSON.stringify(["", "", "", "", "", "", "", "", ""]));
 }
+var localTasks = JSON.parse(localStorage.getItem("tasks"));
 
 function saveTasks(event) {
-
+    var unsavedTask = event.target.parentElement.querySelector(".col-10").value;
+    var taskIndex = event.target.parentElement.getAttribute("data-id");
+    localTasks[taskIndex] = unsavedTask;
+    localStorage.setItem("tasks", JSON.stringify(localTasks));
 }
 
 function renderPage() {
-    var containerEl = document.querySelector(".container");
 
     function renderTime() {
         var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         var weekdayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        var dateString = `${weekdayNames[date.getDay()]}, ${monthNames[date.getMonth()]} ${date.getDate().toString()}`
+        var dateString = `${weekdayNames[date.getDay()]}, ${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
         $( "#currentDay" ).text( dateString );
     }
 
@@ -57,11 +57,9 @@ function renderPage() {
     }
 
     function loadTasks() {
-        var savedTasks = JSON.parse(localStorage.getItem("tasks"));
-        console.log(savedTasks);
         var rowEls = document.querySelectorAll(".row");
         for (let i = 0; i < rowEls.length; i++) {
-            rowEls[i].querySelector(".col-10").textContent = savedTasks[i];
+            rowEls[i].querySelector(".col-10").textContent = localTasks[i];
         }
     }
 
@@ -71,6 +69,8 @@ function renderPage() {
 }
 
 renderPage();
+
+$(".container").on("click", ".saveBtn", saveTasks);
 
 // function constructPerson(one, two) {
 //     if (one && two) {
