@@ -7,12 +7,13 @@ if (localStorage.getItem("tasks") == null) {
     localStorage.setItem("tasks", JSON.stringify(["", "", "", "", "", "", "", "", ""]));
 }
 
-function saveTask(event) {
-    var savedTasks = JSON.parse(localStorage.getItem("tasks"));
+function saveTasks(event) {
 
 }
 
 function renderPage() {
+    var containerEl = document.querySelector(".container");
+
     function renderTime() {
         var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         var weekdayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -20,7 +21,7 @@ function renderPage() {
         $( "#currentDay" ).text( dateString );
     }
 
-    function renderTasks(tasks) {
+    function renderTasks() {
         var times = ["9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM"];
         for (let i = 0; i < 9; i++) {
             var row = document.createElement("div");
@@ -29,7 +30,6 @@ function renderPage() {
             var tasksArea = document.createElement("textarea");
             var saveBtn = document.createElement("button");
             var currentHour = date.getHours();
-            var containerEl = document.querySelector(".container");
 
             row.classList.add("row");
             timeSlot.classList.add("hour", "col-1", "d-flex", "align-items-center");
@@ -56,10 +56,18 @@ function renderPage() {
         }
     }
 
-    var savedTasks = localStorage.getItem("savedTasks");
+    function loadTasks() {
+        var savedTasks = JSON.parse(localStorage.getItem("tasks"));
+        console.log(savedTasks);
+        var rowEls = document.querySelectorAll(".row");
+        for (let i = 0; i < rowEls.length; i++) {
+            rowEls[i].querySelector(".col-10").textContent = savedTasks[i];
+        }
+    }
 
     renderTime();
     renderTasks();
+    loadTasks();
 }
 
 renderPage();
