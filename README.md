@@ -15,4 +15,4 @@ This application makes use of jQuery, Moment, and Boostrap. Even though JavaScri
 ## Live Link
 
 - - -
-[Link to deployed page](https://phoenix-staley.github.io/javascript-quiz/)
+[Link to deployed page](https://phoenix-staley.github.io/Daily_Scheduler/)
