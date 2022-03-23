@@ -6,8 +6,10 @@ if (localStorage.getItem("tasks") == null) {
 let localTasks = JSON.parse(localStorage.getItem("tasks"));
 
 function saveTasks(event) {
+    // Selects the value of the textarea next to the selected button
     let unsavedTask = event.target.parentElement.querySelector(".col-md-10").value;
     let taskIndex = event.target.parentElement.getAttribute("data-id");
+
     localTasks[taskIndex] = unsavedTask;
     localStorage.setItem("tasks", JSON.stringify(localTasks));
 }
@@ -24,6 +26,7 @@ function renderPage() {
     function renderTasks() {
         let times = ["9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM"];
         for (let i = 0; i < 9; i++) {
+            // Creates one block per iteration
             let row = document.createElement("div");
             let timeSlot = document.createElement("div");
             let hour = document.createElement("p");
